@@ -50,7 +50,7 @@ fun LoginScreen (navController: NavHostController) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(painter = painterResource(id = R.drawable.xxi), contentDescription = "Login Image",
+        Image(painter = painterResource(id = R.drawable.alfa), contentDescription = "Login Image",
             modifier = Modifier.size(200.dp))
         Text(text = "Welcome Back", fontSize = 28.sp, fontWeight = FontWeight.Bold)
 

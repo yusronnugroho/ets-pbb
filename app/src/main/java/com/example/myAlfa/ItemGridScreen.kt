@@ -1,7 +1,6 @@
 package com.example.mymovie
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -15,61 +14,59 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 
 @Composable
-fun CinemaHomePageScreen(navController: NavHostController) {
-    val movies = listOf(
-        Movie("Barbie", R.drawable.barbie),
-        Movie("Exhuma", R.drawable.exhu),
-        Movie("Oppenheimer", R.drawable.oppen),
-        Movie("Mencuri Raden S..", R.drawable.raden),
-        Movie("Suzume", R.drawable.suzu),
-        Movie("Wish", R.drawable.wish)
-    )
+fun MovieGridScreen() {
+
+    val movie = Movie("Baju", R.drawable.baju)
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(8.dp)
+            .padding(16.dp)
     ) {
         Text(
-            text = "Now Playing",
-            style = MaterialTheme.typography.titleLarge.copy(
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold
-            ),
-            modifier = Modifier
-                .padding(8.dp)
-                .align(Alignment.CenterHorizontally)
+            text = movie.title,
+            style = MaterialTheme.typography.titleLarge.copy(fontSize = 24.sp, color = Color.Black),
+            modifier = Modifier.padding(bottom = 16.dp)
         )
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
+        Image(
+            painter = painterResource(id = movie.imageRes),
+            contentDescription = movie.title,
             modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp),
-            contentPadding = PaddingValues(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(movies.size) { index ->
-                MovieCard(movie = movies[index], navController = navController)
-            }
-        }
+                .height(300.dp)
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)
+        )
+        Text(
+            text = "Harga: Rp.60.000,00/ 1 potong atau RP.380.000,00/ 1 lusin",
+            style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp, color = Color.Gray),
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        Text(
+            text = "Baju terbuat dari 60% katun dan 40% pollyester. Tersedia dalam 6 warna: putih, hitam, cokalt, krem, abu, dan biru",
+            style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp, color = Color.Gray),
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        Text(
+            text = "Supplier: PT Intan Gramen Kratatau Kain",
+            style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp, color = Color.Gray),
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        // Add more details as necessary
     }
 }
 
+
 @Composable
-fun MovieCard(movie: Movie, navController: NavHostController) {
+fun MovieCard(movie: Movie) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
-            .clickable { navController.navigate("Movie") },
+            .padding(8.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(8.dp)
     ) {

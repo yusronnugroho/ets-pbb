@@ -34,13 +34,13 @@ fun SplashScreen(navController: NavController) {
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Image(
-                painter = painterResource(id = R.drawable.xxi),
+                painter = painterResource(id = R.drawable.alfa),
                 contentDescription = "Splash Image",
                 modifier = Modifier.size(200.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "My Tickets",
+                text = " ",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black
@@ -48,5 +48,4 @@ fun SplashScreen(navController: NavController) {
         }
     }
 }
-
 

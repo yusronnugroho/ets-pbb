@@ -1,6 +1,7 @@
 package com.example.mymovie
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -14,59 +15,61 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 
 @Composable
-fun MovieGridScreen() {
-
-    val movie = Movie("Barbie", R.drawable.barbie)
+fun CinemaHomePageScreen(navController: NavHostController) {
+    val movies = listOf(
+        Movie("Baju", R.drawable.baju),
+        Movie("Celana", R.drawable.celana),
+        Movie("Alat Masak", R.drawable.panci),
+        Movie("Tool Box", R.drawable.tool),
+        Movie("Magic com", R.drawable.magic),
+        Movie("Lampu", R.drawable.lampu)
+    )
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(8.dp)
     ) {
         Text(
-            text = movie.title,
-            style = MaterialTheme.typography.titleLarge.copy(fontSize = 24.sp, color = Color.Black),
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-        Image(
-            painter = painterResource(id = movie.imageRes),
-            contentDescription = movie.title,
+            text = "Barang Trending Saat ini",
+            style = MaterialTheme.typography.titleLarge.copy(
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold
+            ),
             modifier = Modifier
-                .height(300.dp)
-                .fillMaxWidth()
-                .padding(bottom = 16.dp)
+                .padding(8.dp)
+                .align(Alignment.CenterHorizontally)
         )
-        Text(
-            text = "Movie Description: Barbie's adventurous journey...",
-            style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp, color = Color.Gray),
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        Text(
-            text = "Release Date: July 21, 2023",
-            style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp, color = Color.Gray),
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        Text(
-            text = "Director: Greta Gerwig",
-            style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp, color = Color.Gray),
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        // Add more details as necessary
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(8.dp),
+            contentPadding = PaddingValues(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(movies.size) { index ->
+                MovieCard(movie = movies[index], navController = navController)
+            }
+        }
     }
 }
 
-
 @Composable
-fun MovieCard(movie: Movie) {
+fun MovieCard(movie: Movie, navController: NavHostController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(8.dp)
+            .clickable { navController.navigate("Movie") },
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
